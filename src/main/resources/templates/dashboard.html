@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Tableau de bord - SpringRH</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <h1 class="mb-4">Tableau de bord</h1>
+        
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Employés</h5>
+                        <p class="card-text display-4" th:text="${totalEmployes}">0</p>
+                        <a th:href="@{/employes}" class="btn btn-primary">Gérer les employés</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Départements</h5>
+                        <p class="card-text display-4" th:text="${totalDepartements}">0</p>
+                        <a th:href="@{/departements}" class="btn btn-primary">Gérer les départements</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Actions rapides</h5>
+                        <div class="d-flex gap-2">
+                            <a th:href="@{/employes/new}" class="btn btn-success">Ajouter un employé</a>
+                            <a th:href="@{/departements/new}" class="btn btn-success">Ajouter un département</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

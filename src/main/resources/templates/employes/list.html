@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Liste des employés - SpringRH</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Liste des employés</h1>
+            <a th:href="@{/employes/new}" class="btn btn-primary">Ajouter un employé</a>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form th:action="@{/employes}" method="get" class="row g-3">
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="keyword" 
+                               th:value="${param.keyword}" placeholder="Rechercher un employé...">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-secondary w-100">Rechercher</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Poste</th>
+                        <th>Département</th>
+                        <th>Date d'embauche</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="employe : ${employes}">
+                        <td th:text="${employe.id}"></td>
+                        <td th:text="${employe.nom}"></td>
+                        <td th:text="${employe.prenom}"></td>
+                        <td th:text="${employe.email}"></td>
+                        <td th:text="${employe.poste}"></td>
+                        <td th:text="${employe.departement?.nom}"></td>
+                        <td th:text="${#temporals.format(employe.dateEmbauche, 'dd/MM/yyyy')}"></td>
+                        <td>
+                            <div class="btn-group">
+                                <a th:href="@{/employes/edit/{id}(id=${employe.id})}" 
+                                   class="btn btn-sm btn-outline-primary">Modifier</a>
+                                <a th:href="@{/employes/delete/{id}(id=${employe.id})}" 
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?')">
+                                    Supprimer
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(employes)}">
+                        <td colspan="8" class="text-center">Aucun employé trouvé</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 
